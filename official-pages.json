@@ -1,0 +1,26 @@
+{
+  "verifiedOn": "2026-11-15",
+  "note": "Offisielle innganger til kundeaviser. Dette er nettsider, ikke JSON-API-er eller tillatelse til å kopiere bilder. Flere aviser er butikk-/postnummeravhengige.",
+  "chains": [
+    {
+      "chain": "REMA 1000",
+      "url": "https://www.rema.no/kampanjer/"
+    },
+    {
+      "chain": "KIWI",
+      "url": "https://kiwi.no/"
+    },
+    {
+      "chain": "Coop",
+      "url": "https://www.coop.no/kundeavis"
+    },
+    {
+      "chain": "MENY",
+      "url": "https://meny.no/kampanjer"
+    },
+    {
+      "chain": "Bunnpris",
+      "url": "https://www.bunnpris.no/"
+    }
+  ]
+}
