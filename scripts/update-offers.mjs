@@ -27,7 +27,7 @@ for (const source of sources) {
       const items = Array.isArray(payload) ? payload : payload.offers;
       if (!Array.isArray(items)) throw Error('JSON source has no offers');
       for (const item of items) if (item.id && item.chain && item.imageUrl && item.url && safe(item.imageUrl) && safe(item.url) && (!item.validTo || item.validTo >= today))
-        offers.push({id:String(item.id),chain:String(item.chain),title:String(item.title || 'Kundeavis'),imageUrl:item.imageUrl,url:item.url,validFrom:item.validFrom || null,validTo:item.validTo || null});
+        offers.push({id:String(item.id),chain:String(item.chain),title:String(item.title || 'Kundeavis'),imageUrl:item.imageUrl,url:item.url,pages:Array.isArray(item.pages)?item.pages.filter(safe):[],pdfUrl:safe(item.pdfUrl)?item.pdfUrl:null,validFrom:item.validFrom || null,validTo:item.validTo || null});
       successful++;
       continue;
     }
