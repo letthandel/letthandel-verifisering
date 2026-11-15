@@ -1,4 +1,61 @@
 {
-  "updatedAt": "2026-11-15T00:00:00Z",
-  "offers": []
+  "updatedAt": "2026-11-15T16:30:48.800Z",
+  "offers": [
+    {
+      "id": "rema-c1Y2UVBl",
+      "chain": "Rema 1000",
+      "title": "REMA 1000 – Uke 47",
+      "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-1.webp&w=700&s=4b32574c2fd1f638cd3c1955224678b0",
+      "url": "https://www.rema.no/kampanjer/",
+      "pages": [
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-1.webp&w=700&s=4b32574c2fd1f638cd3c1955224678b0",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-2.webp&w=700&s=512d9d049007a22bd154f275d9744d8f",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-3.webp&w=700&s=44a769e3b586dd46e8c75264a787e835",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-4.webp&w=700&s=ba5d2466e528a03add650fcec3d0bc7e",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-5.webp&w=700&s=ffc6c5356418eafdacae6028ebaf0749",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-6.webp&w=700&s=92dd70f0191ce18cb29ced11abb7b436",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-7.webp&w=700&s=d5413e25428f018cb36d5409d7530824",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-8.webp&w=700&s=9f55aee490f5cc0be29ff7ca6e5e60a9",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-9.webp&w=700&s=7b75dfebd1fb729ae0839b19434eb6c9",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-10.webp&w=700&s=9db3d5a67b6f2f41f87ed08c357bd723",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-11.webp&w=700&s=2fbb3d4f182a0f7ecc6efeb070cdc92d",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-12.webp&w=700&s=9e13c582b5c06c8c0747fd4757b507f4",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-13.webp&w=700&s=5f19bb6ec62a056457862fa3fe982f74",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-14.webp&w=700&s=d563eb5b2354c6731ed32a8fff524aa8",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-15.webp&w=700&s=f5d520fbef02a36ed55b8f30e2edea57",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-16.webp&w=700&s=97e878da2dcef0985b496d0ea8745ef7",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-17.webp&w=700&s=cae1c48ac09de6aefb215e682e8b2089",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-18.webp&w=700&s=b1a5487b7d302730e8d134080606067e",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-19.webp&w=700&s=b7123970dea4d6ab35b13bd2b45b86f9",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-20.webp&w=700&s=4b1cdcaad38043070f992923888b70b2",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-21.webp&w=700&s=7ae24537b24f51eb39c1966971effb04",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-22.webp&w=700&s=5354372c96d4cef347dd75b5bd0b7b5b",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-23.webp&w=700&s=5f9a98e4d80e8ffedac31f9e46f2599c",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-24.webp&w=700&s=dc71097a5087c08228ddbc049d7073ac",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-25.webp&w=700&s=aed631f6798d0bcf62b2d6b161249b88",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-26.webp&w=700&s=425e0ab2b8c9ef2884623a8dac886fda",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-27.webp&w=700&s=9414359254648c3466607b8fcb43a97e",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-28.webp&w=700&s=1e5ef43762139f951ab67d7d543a51a4",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-29.webp&w=700&s=c1978d8022faf2eee08b11afda9b0e83",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Fc1Y2UVBl%2Fp-replacement-5WCZmOsM-30.webp&w=700&s=a0eb1c1b589f60b60a031dc1e13f380b"
+      ],
+      "validFrom": "2026-11-15T23:00:00+0000",
+      "validTo": "2026-11-21T22:59:59+0000"
+    },
+    {
+      "id": "rema-Hpxm4IbL",
+      "chain": "Rema 1000",
+      "title": "REMA 1000 – Crazy Days Ringnes 10pk",
+      "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-1.webp&w=700&s=2c66594931a9275a136150bed167dd41",
+      "url": "https://www.rema.no/kampanjer/",
+      "pages": [
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-1.webp&w=700&s=2c66594931a9275a136150bed167dd41",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-2.webp&w=700&s=c463da8ff3bd3130bf9aedfb3600f53d",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-3.webp&w=700&s=a255edbe90b0ae050c6ab56c2f643f80",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-4.webp&w=700&s=f06ad3cf9dfc3194bf67c3e430df018b"
+      ],
+      "validFrom": "2026-11-15T23:00:00+0000",
+      "validTo": "2026-11-18T22:59:59+0000"
+    }
+  ]
 }
