@@ -1,3 +1,29 @@
 {
-  "sources": []
+  "sources": [
+    {
+      "id": "rema",
+      "chain": "Rema 1000",
+      "url": "https://www.rema.no/kampanjer/"
+    },
+    {
+      "id": "kiwi",
+      "chain": "Kiwi",
+      "url": "https://kiwi.no/"
+    },
+    {
+      "id": "coop",
+      "chain": "Coop",
+      "url": "https://www.coop.no/kundeavis"
+    },
+    {
+      "id": "meny",
+      "chain": "MENY",
+      "url": "https://meny.no/kampanjer"
+    },
+    {
+      "id": "bunnpris",
+      "chain": "Bunnpris",
+      "url": "https://www.bunnpris.no/"
+    }
+  ]
 }
