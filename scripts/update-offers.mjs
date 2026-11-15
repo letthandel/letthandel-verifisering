@@ -16,11 +16,11 @@ const previous = JSON.parse(await readFile(OUTPUT, 'utf8'));
 try {
   const catalogs = await json(CATALOGS);
   if (!Array.isArray(catalogs)) throw new Error('Unexpected catalog format');
-  // Publish only catalogs whose date range includes today; never show an expired weekly ad.
+  // Publish catalogs already released to the public, including upcoming valid-from dates; exclude expired catalogs.
   const active = catalogs.filter(c =>
     c && c.id && c.dealer_id === 'faa0Ym' &&
     c.types?.includes('paged') && c.page_count > 0 &&
-    Date.parse(c.run_from) <= today && Date.parse(c.run_till) >= today
+    Date.parse(c.publish) <= today && Date.parse(c.run_till) >= today
   );
   const offers = [];
   for (const catalog of active) {
