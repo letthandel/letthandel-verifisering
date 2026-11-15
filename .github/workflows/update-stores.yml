@@ -8,13 +8,16 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: '22'
-      - run: node scripts/update-stores.mjs
+          python-version: '3.12'
+      - name: Installer OSM-leser
+        run: python -m pip install --disable-pip-version-check osmium
+      - name: Hent og behandle Norges butikkdata
+        run: python scripts/update-stores.py
       - name: Lagre endringer
         run: |
           git config user.name "github-actions[bot]"
