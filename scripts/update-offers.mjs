@@ -1,38 +1,52 @@
 import { readFile, writeFile } from 'node:fs/promises';
-
-const config = JSON.parse(await readFile('sources.json', 'utf8'));
+const sources = JSON.parse(await readFile('sources.json', 'utf8')).sources || [];
 const previous = JSON.parse(await readFile('data/offers.json', 'utf8'));
-const today = new Date().toISOString().slice(0, 10);
-const validUrl = (s) => { try { return new URL(s).protocol === 'https:'; } catch { return false; } };
+const today = new Date().toISOString().slice(0,10);
 const offers = [];
-let succeeded = 0;
-for (const source of config.sources || []) {
-  if (!validUrl(source.url)) { console.warn('Invalid source URL:', source.id); continue; }
+const safe = s => { try { const u = new URL(s); return u.protocol === 'https:' && !['localhost','127.0.0.1'].includes(u.hostname); } catch { return false; } };
+const decode = s => s.replaceAll('&amp;', '&').replaceAll('&#x2F;', '/').replaceAll('&quot;', '"');
+const meta = (html, key) => {
+  for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
+    if (!new RegExp('(?:property|name)\\s*=\\s*["\\']' + key + '["\\']','i').test(tag)) continue;
+    const match = tag.match(/content\s*=\s*["']([^"']+)["']/i);
+    if (match) return decode(match[1]);
+  }
+  return '';
+};
+let successful = 0;
+for (const source of sources) {
+  if (!safe(source.url)) continue;
   try {
-    const response = await fetch(source.url, { signal: AbortSignal.timeout(15000), headers: { Accept: 'application/json' } });
-    if (!response.ok) throw new Error('HTTP ' + response.status);
-    const payload = await response.json();
-    const items = Array.isArray(payload) ? payload : payload.offers;
-    if (!Array.isArray(items)) throw new Error('Expected offers array');
-    for (const item of items) {
-      if (!item.id || !item.chain || !item.title || !validUrl(item.imageUrl) || !validUrl(item.url)) continue;
-      if (item.validTo && item.validTo < today) continue;
-      offers.push({ id: String(item.id), chain: String(item.chain), title: String(item.title), imageUrl: item.imageUrl, url: item.url, validFrom: item.validFrom || null, validTo: item.validTo || null });
+    const response = await fetch(source.url, {signal: AbortSignal.timeout(18000), headers: {'User-Agent':'LettHandel-offer-discovery/1.0',Accept:'text/html,application/json'}});
+    if (!response.ok) throw Error('HTTP '+response.status);
+    const type = response.headers.get('content-type') || '';
+    if (type.includes('application/json')) {
+      const payload = await response.json();
+      const items = Array.isArray(payload) ? payload : payload.offers;
+      if (!Array.isArray(items)) throw Error('JSON source has no offers');
+      for (const item of items) if (item.id && item.chain && item.imageUrl && item.url && safe(item.imageUrl) && safe(item.url) && (!item.validTo || item.validTo >= today))
+        offers.push({id:String(item.id),chain:String(item.chain),title:String(item.title || 'Kundeavis'),imageUrl:item.imageUrl,url:item.url,validFrom:item.validFrom || null,validTo:item.validTo || null});
+      successful++;
+      continue;
     }
-    succeeded++;
-  } catch (error) { console.error('Source failed:', source.id, error.message); }
+    const html = await response.text();
+    const image = meta(html,'og:image') || meta(html,'twitter:image');
+    const title = meta(html,'og:title') || (html.match(/<title[^>]*>([^<]+)<\/title>/i) || [,''])[1];
+    // Never present a generic campaign or logo as a weekly flyer.
+    const evidence = [image,title].join(' ').toLowerCase();
+    if (!image || !safe(new URL(image,source.url).href) || !/(kundeavis|tilbudsavis|weekly.flyde|avisforside)/i.test(evidence)) {
+      console.log(source.chain+': no verified flyer cover in page metadata');
+      continue;
+    }
+    const absolute = new URL(image,source.url).href;
+    const imageResponse = await fetch(absolute,{method:'HEAD',signal:AbortSignal.timeout(12000)});
+    if (!imageResponse.ok || !/^image\//.test(imageResponse.headers.get('content-type') || '')) throw Error('Metadata image not accessible');
+    offers.push({id:source.id+'-'+absolute,chain:source.chain,title:'Kundeavis fra '+source.chain,imageUrl:absolute,url:source.url,validFrom:null,validTo:null});
+    successful++;
+  } catch(e) { console.warn(source.chain+': '+e.message); }
 }
-if (!(config.sources || []).length) {
-  console.log('No approved feeds configured. Preserving existing offers.');
-  process.exit(0);
-}
-if (!succeeded) {
-  console.log('All feeds failed. Preserving previous data.');
-  process.exit(0);
-}
-const oldOffers = Array.isArray(previous.offers) ? previous.offers : [];
-const failedSourceIds = new Set((config.sources || []).filter(s => !offers.some(o => o.chain === s.chain)).map(s => s.chain));
-for (const offer of oldOffers) if (failedSourceIds.has(offer.chain) && (!offer.validTo || offer.validTo >= today)) offers.push(offer);
-const unique = [...new Map(offers.map(offer => [offer.id, offer])).values()];
-await writeFile('data/offers.json', JSON.stringify({ updatedAt: new Date().toISOString(), offers: unique }, null, 2) + '\n');
-console.log('Offers:', unique.length);
+if (!successful) { console.log('No confirmed images; retaining existing data'); process.exit(0); }
+const unique=[...new Map(offers.map(o=>[o.id,o])).values()];
+const next={updatedAt:new Date().toISOString(),offers:unique};
+await writeFile('data/offers.json',JSON.stringify(next,null,2)+'\n');
+console.log('Published '+unique.length+' offers');
