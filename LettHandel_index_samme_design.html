@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0f0f0f"><title>LettHandel – SMS-bekreftelse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#0f0f0f;--card:#1e1e1e;--line:#303030;--sub:#aaa;--green:#18a84a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:white;font-family:"Bricolage Grotesque",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100svh;padding:calc(22px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom))}main{width:min(100%,460px);margin:auto}.top{display:flex;align-items:center;gap:12px;margin:6px 0 34px}.mark{width:43px;height:43px;border-radius:15px;background:linear-gradient(145deg,#1bbf51,#075c27);display:grid;place-items:center;box-shadow:0 6px 22px #08762b50;font-size:23px}.brand{font-weight:800;font-size:21px;letter-spacing:-.7px}.eyebrow{color:#8bd9a0;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 12px}h1{font-weight:800;font-size:31px;letter-spacing:-1px;line-height:1.13;margin:0 0 12px}p{color:#b6b6b6;line-height:1.55;margin:0}.card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:23px;margin-top:25px;box-shadow:0 14px 38px #0003}.step{display:flex;align-items:center;gap:10px;color:#c9c9c9;font-size:13px;margin-bottom:23px}.step span{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#143c24;color:#76df97;font-weight:800}.fieldlabel{display:block;font-size:13px;font-weight:700;margin-bottom:10px;color:#d8d8d8}.phonewrap{display:flex;align-items:center;border:1px solid #454545;border-radius:18px;background:#111;overflow:hidden}.prefix{color:#bdbdbd;padding-left:17px;font-weight:700;white-space:nowrap}.phonewrap input{border:0;background:transparent;min-width:0;flex:1}input{font-family:inherit;width:100%;border:1px solid #454545;border-radius:18px;background:#111;color:#fff;padding:17px;font-size:17px;outline:none}input:focus,.phonewrap:focus-within{border-color:#24bf5a;box-shadow:0 0 0 3px #18a84a24}button{width:100%;border:0;border-radius:18px;background:linear-gradient(135deg,#1bbf51 0%,#118b3a 54%,#075c27 100%);color:#fff;font:inherit;font-size:16px;font-weight:700;padding:17px;margin-top:18px;cursor:pointer;box-shadow:0 7px 18px #08732a35}button:disabled{opacity:.5;cursor:wait}.secondary{background:#323232;box-shadow:none}.hide{display:none!important}#message{margin:16px 0 0;min-height:0;font-size:14px}#message:not(:empty){border-radius:15px;padding:13px 15px;background:#252525}#message.ok{color:#9af1b3;background:#153622}#message.error{color:#ffc0c0;background:#412323}.hint{display:flex;gap:11px;margin:24px 2px 0;color:#9f9f9f;font-size:12px;line-height:1.55}.hint svg{flex:none;margin-top:2px}.footer{text-align:center;color:#737373;font-size:12px;margin-top:35px}.verified{font-size:14px;color:#a6edb8}.phone-preview{color:#9de7b2;font-weight:700;margin-top:6px;font-size:14px}@media(min-height:800px){main{padding-top:24px}}
+</style></head><body><main>
+<header class="top"><div class="mark" aria-hidden="true">✓</div><div class="brand">LettHandel</div></header>
+<p class="eyebrow">Sikkerhet i profilen</p><h1>Bekreft<br>mobilnummeret ditt</h1><p>Vi sender en engangskode for å kontrollere at mobilnummeret tilhører deg.</p>
+<section class="card"><div class="step"><span>1</span> Verifiser med SMS</div>
+<form id="phoneForm"><label class="fieldlabel" for="phone">Mobilnummer</label><div class="phonewrap"><span class="prefix">+47</span><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="123 45 678" required aria-label="Norsk mobilnummer"></div><button id="send" type="submit">Send SMS-kode →</button></form>
+<form id="codeForm" class="hide"><label class="fieldlabel" for="code">Sekssifret bekreftelseskode</label><input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" required><button id="verify" type="submit">Bekreft mobilnummer ✓</button><button id="restart" class="secondary" type="button">Bruk et annet nummer</button></form>
+<div id="recaptcha-container"></div><p id="message" role="status" aria-live="polite"></p></section>
+<div class="hint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#78c991" stroke-width="1.8" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg><div>Har du lagt inn et testnummer i Firebase? Bruk testkoden derfra – ingen ekte SMS sendes til testnummeret.<p style="margin-top:9px;font-size:12px">Bekreftelsen registreres i Firebase, men kobles ennå ikke automatisk til LettHandel-appen. Deling forblir sperret inntil sikker kontokobling er på plass.</p></div></div>
+<div class="footer">LettHandel · Mobilverifisering</div></main>
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+  import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, signOut } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+
+  const firebaseConfig = {
+    apiKey: 'AIzaSyCULShtv7gcOWqJUUfmyivnqQPFpYQ7scM',
+    authDomain: 'sandsli.firebaseapp.com',
+    databaseURL: 'https://sandsli-default-rtdb.firebaseio.com',
+    projectId: 'sandsli',
+    storageBucket: 'sandsli.firebasestorage.app',
+    messagingSenderId: '668816363872',
+    appId: '1:668816363872:web:07541c6723b46959640e05',
+    measurementId: 'G-9ZX77TBYZL'
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  auth.languageCode = 'no';
+  const $ = id => document.getElementById(id);
+  let confirmation = null;
+  let verifier = null;
+  const status = (message, type = '') => { $('message').textContent = message; $('message').className = type; };
+  const parsePhone = raw => {
+    const digits = raw.replace(/\D/g, '');
+    const national = digits.startsWith('47') && digits.length === 10 ? digits.slice(2) : digits;
+    return /^[0-9]{8}$/.test(national) ? `+47${national}` : null;
+  };
+  // Fyll inn nummeret fra LettHandel når nettsiden åpnes med ?phone=+47XXXXXXXX.
+  // Nummeret er bare forhåndsutfylt, og er IKKE verifisert før koden bekreftes.
+  const incomingPhone = new URLSearchParams(window.location.search).get('phone');
+  if (incomingPhone) {
+    const normalized = parsePhone(incomingPhone);
+    if (normalized) $('phone').value = normalized.slice(3).replace(/(\d{3})(\d{2})(\d{3})/, '$1 $2 $3');
+  }
+  const readableError = error => {
+    const code = error?.code || '';
+    if (code.includes('invalid-phone-number')) return 'Skriv inn et gyldig norsk mobilnummer.';
+    if (code.includes('invalid-verification-code')) return 'Koden er feil. Prøv igjen.';
+    if (code.includes('code-expired')) return 'Koden er utløpt. Start på nytt.';
+    if (code.includes('too-many-requests')) return 'For mange forsøk. Vent litt og prøv igjen.';
+    if (code.includes('unauthorized-domain')) return 'Domenet må legges til i Firebase Authentication → Authorized domains.';
+    return `Kunne ikke fullføre (${code || 'ukjent feil'}). Kontroller Firebase-oppsettet og prøv igjen.`;
+  };
+  $('phoneForm').addEventListener('submit', async event => {
+    event.preventDefault();
+    const phone = parsePhone($('phone').value);
+    if (!phone) { status('Skriv inn åtte sifre, eventuelt med +47.', 'error'); return; }
+    $('send').disabled = true;
+    status('Forbereder SMS-verifisering …');
+    try {
+      if (auth.currentUser) await signOut(auth);
+      if (verifier) { verifier.clear(); verifier = null; }
+      verifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible' });
+      confirmation = await signInWithPhoneNumber(auth, phone, verifier);
+      $('phoneForm').classList.add('hide');
+      $('codeForm').classList.remove('hide');
+      status('Koden er sendt. Bruk testkoden hvis dette er et Firebase-testnummer.', 'ok');
+    } catch (error) {
+      status(readableError(error), 'error');
+      try { verifier?.clear(); } catch (_) {}
+      verifier = null;
+    } finally { $('send').disabled = false; }
+  });
+  $('codeForm').addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!confirmation) return;
+    $('verify').disabled = true;
+    status('Kontrollerer kode …');
+    try {
+      const result = await confirmation.confirm($('code').value.trim());
+      const verified = result.user.phoneNumber || 'Mobilnummeret';
+      $('codeForm').classList.add('hide');
+      status(`${verified} er bekreftet i Firebase. Kobling til LettHandel-appen gjenstår.`, 'ok');
+    } catch (error) { status(readableError(error), 'error'); }
+    finally { $('verify').disabled = false; }
+  });
+  $('restart').addEventListener('click', () => location.reload());
+</script>
+</body>
+</html>
