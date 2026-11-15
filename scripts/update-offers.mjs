@@ -1,56 +1,55 @@
 import { readFile, writeFile } from 'node:fs/promises';
-const sources = JSON.parse(await readFile('sources.json', 'utf8')).sources || [];
-const previous = JSON.parse(await readFile('data/offers.json', 'utf8'));
-const today = new Date().toISOString().slice(0,10);
-const offers = [];
-const safe = s => { try { const u = new URL(s); return u.protocol === 'https:' && !['localhost','127.0.0.1'].includes(u.hostname); } catch { return false; } };
-const decode = s => s.replaceAll('&amp;', '&').replaceAll('&#x2F;', '/').replaceAll('&quot;', '"');
-const meta = (html, key) => {
-  for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
-    const attr = name => {
-      const pattern = new RegExp(name + '\\s*=\\s*(["\\x27])([^"\\x27]*)\\1', 'i');
-      return (tag.match(pattern) || [,'',''])[2];
-    };
-    if (attr('property') === key || attr('name') === key) return decode(attr('content'));
-  }
-  return '';
-};
-let successful = 0;
-for (const source of sources) {
-  if (!safe(source.url)) continue;
-  try {
-    const response = await fetch(source.url, {signal: AbortSignal.timeout(18000), headers: {'User-Agent':'LettHandel-offer-discovery/1.0',Accept:'text/html,application/json'}});
-    if (!response.ok) throw Error('HTTP '+response.status);
-    const type = response.headers.get('content-type') || '';
-    if (type.includes('application/json')) {
-      const payload = await response.json();
-      const items = Array.isArray(payload) ? payload : payload.offers;
-      if (!Array.isArray(items)) throw Error('JSON source has no offers');
-      for (const item of items) if (item.id && item.chain && item.imageUrl && item.url && safe(item.imageUrl) && safe(item.url) && (!item.validTo || item.validTo >= today))
-        offers.push({id:String(item.id),chain:String(item.chain),title:String(item.title || 'Kundeavis'),imageUrl:item.imageUrl,url:item.url,pages:Array.isArray(item.pages)?item.pages.filter(safe):[],pdfUrl:safe(item.pdfUrl)?item.pdfUrl:null,validFrom:item.validFrom || null,validTo:item.validTo || null});
-      successful++;
-      continue;
-    }
-    const html = await response.text();
-    const image = meta(html,'og:image') || meta(html,'twitter:image');
-    const title = meta(html,'og:title') || (html.match(/<title[^>]*>([^<]+)<\/title>/i) || [,''])[1];
-    // Never present a generic campaign or logo as a weekly flyer.
-    const evidence = [image,title].join(' ').toLowerCase();
-    // Page titles alone are not proof that an Open Graph image is a flyer cover.
-    const imageEvidence = image.toLowerCase();
-    if (!image || !safe(new URL(image,source.url).href) || !/(kundeavis|tilbudsavis|weekly.flyde|avisforside)/i.test(imageEvidence)) {
-      console.log(source.chain+': no verified flyer cover in page metadata');
-      continue;
-    }
-    const absolute = new URL(image,source.url).href;
-    const imageResponse = await fetch(absolute,{method:'HEAD',signal:AbortSignal.timeout(12000)});
-    if (!imageResponse.ok || !/^image\//.test(imageResponse.headers.get('content-type') || '')) throw Error('Metadata image not accessible');
-    offers.push({id:source.id+'-'+absolute,chain:source.chain,title:'Kundeavis fra '+source.chain,imageUrl:absolute,url:source.url,validFrom:null,validTo:null});
-    successful++;
-  } catch(e) { console.warn(source.chain+': '+e.message); }
+
+// REMA 1000's publicly observed Tjek catalog endpoints.
+// Only use this integration where you have permission to republish the page images.
+const CATALOGS = 'https://api.etilbudsavis.dk/v2/catalogs?dealer_ids=faa0Ym&order_by=publication_date&r_locale=en_US';
+const PAGES = id => `https://api.etilbudsavis.dk/v2/catalogs/${encodeURIComponent(id)}/pages?r_locale=en_US`;
+const OUTPUT = 'data/offers.json';
+const today = Date.now();
+const isHttps = s => { try { return new URL(s).protocol === 'https:'; } catch { return false; } };
+async function json(url) {
+  const response = await fetch(url, { signal: AbortSignal.timeout(20000), headers: { Accept: 'application/json', 'User-Agent': 'LettHandel/1.0 (catalog metadata)' } });
+  if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
+  return response.json();
 }
-if (!successful) { console.log('No confirmed images; retaining existing data'); process.exit(0); }
-const unique=[...new Map(offers.map(o=>[o.id,o])).values()];
-const next={updatedAt:new Date().toISOString(),offers:unique};
-await writeFile('data/offers.json',JSON.stringify(next,null,2)+'\n');
-console.log('Published '+unique.length+' offers');
+const previous = JSON.parse(await readFile(OUTPUT, 'utf8'));
+try {
+  const catalogs = await json(CATALOGS);
+  if (!Array.isArray(catalogs)) throw new Error('Unexpected catalog format');
+  // Publish only catalogs whose date range includes today; never show an expired weekly ad.
+  const active = catalogs.filter(c =>
+    c && c.id && c.dealer_id === 'faa0Ym' &&
+    c.types?.includes('paged') && c.page_count > 0 &&
+    Date.parse(c.run_from) <= today && Date.parse(c.run_till) >= today
+  );
+  const offers = [];
+  for (const catalog of active) {
+    try {
+      const rawPages = await json(PAGES(catalog.id));
+      if (!Array.isArray(rawPages)) throw new Error('Unexpected pages format');
+      const pages = rawPages.map(p => p?.view).filter(isHttps);
+      if (pages.length !== catalog.page_count) throw new Error(`Expected ${catalog.page_count} pages, got ${pages.length}`);
+      const imageUrl = catalog.images?.view && isHttps(catalog.images.view) ? catalog.images.view : pages[0];
+      offers.push({
+        id: `rema-${catalog.id}`, chain: 'Rema 1000',
+        title: `REMA 1000 – ${catalog.label || 'kundeavis'}`,
+        imageUrl, url: 'https://www.rema.no/kampanjer/',
+        pages, validFrom: catalog.run_from, validTo: catalog.run_till
+      });
+    } catch (error) { console.warn(`REMA catalog ${catalog.id}: ${error.message}`); }
+  }
+  if (active.length && !offers.length) throw new Error('No complete catalogs could be fetched');
+  // Keep other chains from previous data; this integration only owns REMA entries.
+  const otherChains = (previous.offers || []).filter(o => o.chain !== 'Rema 1000');
+  const nextOffers = [...offers, ...otherChains];
+  const previousComparable = JSON.stringify(previous.offers || []);
+  if (JSON.stringify(nextOffers) !== previousComparable) {
+    await writeFile(OUTPUT, JSON.stringify({updatedAt:new Date().toISOString(),offers:nextOffers},null,2)+'\n');
+    console.log(`Published ${offers.length} active REMA catalogs (${offers.reduce((n,o)=>n+o.pages.length,0)} pages)`);
+  } else {
+    console.log('No offer changes');
+  }
+} catch (error) {
+  console.error('REMA sync failed; preserving last published offers:', error.message);
+  process.exitCode = 1;
+}
