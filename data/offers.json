@@ -1,4 +1,14 @@
 {
-  "updatedAt": null,
-  "offers": []
+  "updatedAt": "2026-11-15T16:03:24.975Z",
+  "offers": [
+    {
+      "id": "rema-https://cdn.sanity.io/images/nfkyqp12/production/b7797250b6cb6e12a4b32a9cbe924c6668ffac83-300x200.jpg?rect=0,21,300,158&bg=ffffff&w=1200&h=630&fm=jpg&q=80&fit=crop",
+      "chain": "Rema 1000",
+      "title": "Kundeavis fra Rema 1000",
+      "imageUrl": "https://cdn.sanity.io/images/nfkyqp12/production/b7797250b6cb6e12a4b32a9cbe924c6668ffac83-300x200.jpg?rect=0,21,300,158&bg=ffffff&w=1200&h=630&fm=jpg&q=80&fit=crop",
+      "url": "https://www.rema.no/kampanjer/",
+      "validFrom": null,
+      "validTo": null
+    }
+  ]
 }
