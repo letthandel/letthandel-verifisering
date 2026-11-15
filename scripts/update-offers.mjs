@@ -7,9 +7,11 @@ const safe = s => { try { const u = new URL(s); return u.protocol === 'https:' &
 const decode = s => s.replaceAll('&amp;', '&').replaceAll('&#x2F;', '/').replaceAll('&quot;', '"');
 const meta = (html, key) => {
   for (const tag of html.match(/<meta\b[^>]*>/gi) || []) {
-    if (!new RegExp('(?:property|name)\\s*=\\s*["\\']' + key + '["\\']','i').test(tag)) continue;
-    const match = tag.match(/content\s*=\s*["']([^"']+)["']/i);
-    if (match) return decode(match[1]);
+    const attr = name => {
+      const pattern = new RegExp(name + '\\s*=\\s*(["\\x27])([^"\\x27]*)\\1', 'i');
+      return (tag.match(pattern) || [,'',''])[2];
+    };
+    if (attr('property') === key || attr('name') === key) return decode(attr('content'));
   }
   return '';
 };
