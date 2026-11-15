@@ -36,7 +36,9 @@ for (const source of sources) {
     const title = meta(html,'og:title') || (html.match(/<title[^>]*>([^<]+)<\/title>/i) || [,''])[1];
     // Never present a generic campaign or logo as a weekly flyer.
     const evidence = [image,title].join(' ').toLowerCase();
-    if (!image || !safe(new URL(image,source.url).href) || !/(kundeavis|tilbudsavis|weekly.flyde|avisforside)/i.test(evidence)) {
+    // Page titles alone are not proof that an Open Graph image is a flyer cover.
+    const imageEvidence = image.toLowerCase();
+    if (!image || !safe(new URL(image,source.url).href) || !/(kundeavis|tilbudsavis|weekly.flyde|avisforside)/i.test(imageEvidence)) {
       console.log(source.chain+': no verified flyer cover in page metadata');
       continue;
     }
