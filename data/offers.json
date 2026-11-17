@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-15T16:30:48.800Z",
+  "updatedAt": "2026-11-17T06:16:41.900Z",
   "offers": [
     {
       "id": "rema-c1Y2UVBl",
@@ -46,13 +46,13 @@
       "id": "rema-Hpxm4IbL",
       "chain": "Rema 1000",
       "title": "REMA 1000 – Crazy Days Ringnes 10pk",
-      "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-1.webp&w=700&s=2c66594931a9275a136150bed167dd41",
+      "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-replacement-2uqgduu1-1.webp&w=700&s=39602be12f83acad3b2008d35bcf2a51",
       "url": "https://www.rema.no/kampanjer/",
       "pages": [
-        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-1.webp&w=700&s=2c66594931a9275a136150bed167dd41",
-        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-2.webp&w=700&s=c463da8ff3bd3130bf9aedfb3600f53d",
-        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-3.webp&w=700&s=a255edbe90b0ae050c6ab56c2f643f80",
-        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-4.webp&w=700&s=f06ad3cf9dfc3194bf67c3e430df018b"
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-replacement-2uqgduu1-1.webp&w=700&s=39602be12f83acad3b2008d35bcf2a51",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-replacement-2uqgduu1-2.webp&w=700&s=da40c9252620ebbd4de44e07b28ca894",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-replacement-2uqgduu1-3.webp&w=700&s=acefe88f70837392c74d8a025d775b7a",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FHpxm4IbL%2Fp-replacement-2uqgduu1-4.webp&w=700&s=12d3612921b78c7ed6107d8f26029463"
       ],
       "validFrom": "2026-11-15T23:00:00+0000",
       "validTo": "2026-11-18T22:59:59+0000"
