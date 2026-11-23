@@ -5,6 +5,8 @@ import os
 import re
 import tempfile
 import urllib.request
+import urllib.error
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 import osmium
@@ -69,16 +71,49 @@ class StoreHandler(osmium.SimpleHandler):
                         sum(y for _, y in coords) / len(coords))
 
 def download_file(url, filename):
-    request = urllib.request.Request(url, headers={"User-Agent": "LettHandel-store-updater/1.0"})
-    print(f"Laster ned {url}", flush=True)
-    with urllib.request.urlopen(request, timeout=180) as response, open(filename, "wb") as target:
-        while True:
-            chunk = response.read(1024 * 1024)
-            if not chunk:
-                break
-            target.write(chunk)
-    print(f"Nedlasting ferdig: {os.path.getsize(filename) / 1048576:.1f} MiB", flush=True)
-
+    # Behold nedlastede bytes etter 503, timeout eller tilkoblingsbrudd.
+    # HTTP Range brukes til å fortsette i stedet for å laste hele PBF-filen på nytt.
+    max_attempts = 6
+    for attempt in range(1, max_attempts + 1):
+        existing = os.path.getsize(filename) if os.path.exists(filename) else 0
+        headers = {"User-Agent": "LettHandel-store-updater/1.0", "Accept-Encoding": "identity"}
+        if existing:
+            headers["Range"] = f"bytes={existing}-"
+        request = urllib.request.Request(url, headers=headers)
+        try:
+            print(f"Laster ned {url} (forsøk {attempt}/{max_attempts}, {existing / 1048576:.1f} MiB lagret)", flush=True)
+            with urllib.request.urlopen(request, timeout=90) as response:
+                status = response.status
+                content_range = response.headers.get("Content-Range", "")
+                if status == 206 and existing and content_range.startswith(f"bytes {existing}-"):
+                    mode = "ab"
+                elif status == 200:
+                    mode = "wb"  # Serveren ignorerte Range: start på nytt.
+                else:
+                    raise RuntimeError(f"Uventet HTTP-status eller Content-Range: {status} {content_range}")
+                with open(filename, mode) as target:
+                    while True:
+                        chunk = response.read(1024 * 1024)
+                        if not chunk:
+                            break
+                        target.write(chunk)
+                actual = os.path.getsize(filename)
+                if status == 206:
+                    total = response.headers.get("Content-Range", "").split("/")[-1]
+                    if total.isdigit() and actual != int(total):
+                        raise IOError(f"Ufullstendig fil: {actual} av {total} bytes")
+                else:
+                    length = response.headers.get("Content-Length")
+                    if length and length.isdigit() and actual != int(length):
+                        raise IOError(f"Ufullstendig fil: {actual} av {length} bytes")
+                print(f"Nedlasting ferdig: {actual / 1048576:.1f} MiB", flush=True)
+                return
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, ConnectionError, OSError, RuntimeError) as exc:
+            if attempt == max_attempts:
+                raise RuntimeError(f"Nedlasting feilet etter {max_attempts} forsøk fra {url}: {exc}") from exc
+            delay = min(8 * attempt, 40)
+            print(f"Nedlasting avbrutt ({exc}); prøver igjen om {delay} s.", flush=True)
+            time.sleep(delay)
 
 def main():
     with tempfile.TemporaryDirectory() as directory:
