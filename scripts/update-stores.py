@@ -17,6 +17,8 @@ REGION_SOURCES = [
     for region in ("nord-norge", "ostlandet", "sorlandet", "trondelag", "vestlandet")
 ]
 CHAINS = [
+    (r"europris", "Europris"),
+    (r"eurospar", "EUROSPAR"),
     (r"rema\s*1000|rema1000", "Rema 1000"),
     (r"\bkiwi\b", "Kiwi"),
     (r"\bextra\b", "Extra"),
@@ -29,6 +31,7 @@ CHAINS = [
     (r"\bjoker\b", "Joker"),
     (r"\bnærbutikken\b|\bnaerbutikken\b", "Nærbutikken"),
     (r"\bmatkroken\b", "Matkroken"),
+    (r"\bcoop\s*marked\b", "Coop Marked"),
     (r"\bcoop\b", "Coop"),
 ]
 PATTERNS = [(re.compile(pattern, re.I), name) for pattern, name in CHAINS]
@@ -46,7 +49,7 @@ class StoreHandler(osmium.SimpleHandler):
         self.stores = {}
 
     def record(self, kind, obj, lat, lon):
-        if obj.tags.get("shop") not in ("supermarket", "convenience", "grocery"):
+        if obj.tags.get("shop") not in ("supermarket", "convenience", "grocery", "variety", "department_store", "discount", "general"):
             return
         chain = identify(obj.tags)
         if not chain or not (-90 <= lat <= 90 and -180 <= lon <= 180):
