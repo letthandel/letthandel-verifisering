@@ -1,4 +1,43 @@
 {
-  "updatedAt": "2026-11-22T06:10:57.988Z",
-  "offers": []
+  "updatedAt": "2026-11-23T06:24:24.809Z",
+  "offers": [
+    {
+      "id": "rema-AAqIjnUl",
+      "chain": "Rema 1000",
+      "title": "REMA 1000 – Uke 48",
+      "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-1.webp&w=700&s=629e64982393debeef0c79695950a3db",
+      "url": "https://www.rema.no/kampanjer/",
+      "pages": [
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-1.webp&w=700&s=629e64982393debeef0c79695950a3db",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-2.webp&w=700&s=7fb7dfa7e10132aefe66944237e536e3",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-3.webp&w=700&s=13a3ec74ef0355f42507055ad18ebb5e",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-4.webp&w=700&s=d371dfa2cea3289f69d8a6f2c556c3c2",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-5.webp&w=700&s=37d08f7d073c8286a817b4cc6b576fb4",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-6.webp&w=700&s=213fc1ed3506e3d5ed2ddbbd305f90d1",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-7.webp&w=700&s=7840620880652e9f37361665555d5e1c",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-8.webp&w=700&s=5d79f9b938c58585ff7f336de2627676",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-9.webp&w=700&s=db90bc2837a14d959d2a4c6b82469ca9",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-10.webp&w=700&s=56c8beb92abe53de59fc082e160c67e2",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-11.webp&w=700&s=9d6337e43a1d01c1e5ee883bcf1afb19",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-12.webp&w=700&s=8a4ea7eaaba0b90e10c6e2948f84bc6a",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-13.webp&w=700&s=9693d624af32caa88ba3ec062727a270",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-14.webp&w=700&s=7f8d5692d8dff12cf2fb44c1d79b006b",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-15.webp&w=700&s=f2655bf15e8f348c447c87a6d201870a",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-16.webp&w=700&s=7a9e9849377b8a9deb11165d673e5694",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-17.webp&w=700&s=3b6dd8d871de87c4cbaea0c066480040",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-18.webp&w=700&s=1f41a5596a58275a5ffbd57454e77bf4",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-19.webp&w=700&s=7038616adfb14966ac87d41d2adbb0a6",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-20.webp&w=700&s=16c2984428a0fc8c6181270a0f8822c4",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-21.webp&w=700&s=487e2077f5e67ea939d053b2840a4488",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-22.webp&w=700&s=d5649bd037c88c2c00026ed811186a18",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-23.webp&w=700&s=58f7948a5394a5e53d44409edce4b50c",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-24.webp&w=700&s=12118dae96ee8aa620d1768e7b541805",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-25.webp&w=700&s=4292ce2d6a6a7fed7e7328081bdb844a",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-26.webp&w=700&s=d2d625bb7843f030ed2dd739d671b755",
+        "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FAAqIjnUl%2Fp-27.webp&w=700&s=bfdd8838eed3d506db7c3e6cb015f818"
+      ],
+      "validFrom": "2026-11-22T23:00:00+0000",
+      "validTo": "2026-11-28T22:59:59+0000"
+    }
+  ]
 }
