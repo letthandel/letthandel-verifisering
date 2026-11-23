@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import osmium
 
-SOURCE = "https://download.geofabrik.de/europe/norway-latest.osm.pbf"
+SOURCE = "https://download.geofabrik.de/europe/norway/norway-latest.osm.pbf"
 CHAINS = [
     (r"rema\s*1000|rema1000", "Rema 1000"),
     (r"\bkiwi\b", "Kiwi"),
@@ -69,12 +69,15 @@ def main():
         filename = os.path.join(directory, "norway.osm.pbf")
         request = urllib.request.Request(SOURCE, headers={"User-Agent": "LettHandel-store-updater/1.0"})
         print(f"Laster ned {SOURCE}", flush=True)
-        with urllib.request.urlopen(request, timeout=120) as response, open(filename, "wb") as target:
-            while True:
-                chunk = response.read(1024 * 1024)
-                if not chunk:
-                    break
-                target.write(chunk)
+        try:
+            with urllib.request.urlopen(request, timeout=120) as response, open(filename, "wb") as target:
+                while True:
+                    chunk = response.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    target.write(chunk)
+        except Exception as exc:
+            raise RuntimeError(f"Kunne ikke laste ned OSM-data fra {SOURCE}: {exc}") from exc
         print(f"Nedlasting ferdig: {os.path.getsize(filename) / 1048576:.1f} MiB", flush=True)
         handler = StoreHandler()
         handler.apply_file(filename, locations=True)
