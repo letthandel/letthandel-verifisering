@@ -9,7 +9,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 import osmium
 
-SOURCE = "https://download.geofabrik.de/europe/norway/norway-latest.osm.pbf"
+SOURCE = "https://download.geofabrik.de/europe/norway-latest.osm.pbf"
+REGION_SOURCES = [
+    f"https://download.geofabrik.de/europe/norway/{region}-latest.osm.pbf"
+    for region in ("nord-norge", "ostlandet", "sorlandet", "trondelag", "vestlandet")
+]
 CHAINS = [
     (r"rema\s*1000|rema1000", "Rema 1000"),
     (r"\bkiwi\b", "Kiwi"),
@@ -64,23 +68,38 @@ class StoreHandler(osmium.SimpleHandler):
             self.record("way", obj, sum(x for x, _ in coords) / len(coords),
                         sum(y for _, y in coords) / len(coords))
 
+def download_file(url, filename):
+    request = urllib.request.Request(url, headers={"User-Agent": "LettHandel-store-updater/1.0"})
+    print(f"Laster ned {url}", flush=True)
+    with urllib.request.urlopen(request, timeout=180) as response, open(filename, "wb") as target:
+        while True:
+            chunk = response.read(1024 * 1024)
+            if not chunk:
+                break
+            target.write(chunk)
+    print(f"Nedlasting ferdig: {os.path.getsize(filename) / 1048576:.1f} MiB", flush=True)
+
+
 def main():
     with tempfile.TemporaryDirectory() as directory:
         filename = os.path.join(directory, "norway.osm.pbf")
-        request = urllib.request.Request(SOURCE, headers={"User-Agent": "LettHandel-store-updater/1.0"})
-        print(f"Laster ned {SOURCE}", flush=True)
-        try:
-            with urllib.request.urlopen(request, timeout=120) as response, open(filename, "wb") as target:
-                while True:
-                    chunk = response.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    target.write(chunk)
-        except Exception as exc:
-            raise RuntimeError(f"Kunne ikke laste ned OSM-data fra {SOURCE}: {exc}") from exc
-        print(f"Nedlasting ferdig: {os.path.getsize(filename) / 1048576:.1f} MiB", flush=True)
         handler = StoreHandler()
-        handler.apply_file(filename, locations=True)
+        try:
+            download_file(SOURCE, filename)
+            handler.apply_file(filename, locations=True)
+        except Exception as exc:
+            print(f"Landsfilen kunne ikke lastes/behandles ({exc}). Prøver alle fem regioner.", flush=True)
+            handler = StoreHandler()
+            # Alle regionene må lykkes før eksisterende butikkdata kan overskrives.
+            for url in REGION_SOURCES:
+                if os.path.exists(filename):
+                    os.remove(filename)
+                try:
+                    download_file(url, filename)
+                    handler.apply_file(filename, locations=True)
+                except Exception as region_exc:
+                    raise RuntimeError(f"Regional nedlasting/behandling feilet for {url}: {region_exc}") from region_exc
+
         stores = sorted(handler.stores.values(), key=lambda item: item["id"])
         print(f"Fant {len(stores)} kjedebutikker", flush=True)
         if len(stores) < 300:
