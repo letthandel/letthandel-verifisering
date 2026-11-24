@@ -139,7 +139,7 @@ for (const [chain, dealerId] of DEALERS) {
       (c.types?.includes('paged') || c.page_count > 0) &&
       dateMs(c.publish) != null && dateMs(c.publish) <= today &&
       dateMs(c.run_till) != null && dateMs(c.run_till) >= today
-    ).sort((a, b) => (dateMs(b.publish) || 0) - (dateMs(a.publish) || 0)).slice(0, 4);
+    ).sort((a, b) => (dateMs(b.publish) || 0) - (dateMs(a.publish) || 0)).slice(0, 30);
     let geoCoverage = new Map();
     try { geoCoverage = await sourceGeoCoverage(dealerId, active, chain); }
     catch (error) { console.warn(chain + ': geo metadata unavailable: ' + error.message); }
