@@ -49,6 +49,12 @@ async function sourceGeoCoverage(dealerId, active, chain) {
   const stores = allStores.filter(s => s.chain === chain ||
     (chain === 'SPAR' && s.chain === 'EUROSPAR'));
   if (!stores.length) return new Map();
+  // The external source may be rate-limited; never run thousands of
+  // requests every day just to infer coverage from an undocumented API.
+  if (stores.length > 1000) {
+    console.warn(chain + ': too many stores for safe per-store verification');
+    return new Map();
+  }
   if (active.length === 1 && !REGIONAL_TITLE.test(String(active[0].label || '')))
     return new Map();
   const probes = await limited(GEO_PROBES, GEO_CONCURRENCY, ([lat, lng]) =>
