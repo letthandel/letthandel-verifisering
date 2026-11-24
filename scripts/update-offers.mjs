@@ -12,6 +12,99 @@ const DEALERS = [
 const CATALOGS = dealerId => 'https://api.etilbudsavis.dk/v2/catalogs?dealer_ids=' + encodeURIComponent(dealerId) + '&order_by=publication_date&r_locale=en_US';
 const PAGES = id => `https://api.etilbudsavis.dk/v2/catalogs/${encodeURIComponent(id)}/pages?r_locale=en_US`;
 const OUTPUT = 'data/offers.json';
+
+// Query geographical catalog availability only when the source actually behaves
+// differently at different coordinates. A title like "Nord" is not itself a
+// verified store/region match. Never infer coverage from a nearby shop name.
+const GEO_PROBES = [
+  [58.147,7.996], [58.970,5.733], [59.914,10.752], [60.392,5.323],
+  [63.431,10.395], [65.473,12.213], [66.313,14.143], [67.281,14.405],
+  [68.799,16.541], [69.649,18.956], [69.969,23.271]
+];
+const GEO_CONCURRENCY = 5;
+const storesSource = JSON.parse(await readFile('data/stores.json', 'utf8'));
+const allStores = (storesSource.stores || []).filter(s =>
+  s && s.id && s.chain && Number.isFinite(Number(s.latitude)) &&
+  Number.isFinite(Number(s.longitude)));
+const REGIONAL_TITLE = /(?:^|[\s–—:\-])(nord|sør|syd|øst|vest|midt)(?:$|[\s–—:,\-])/i;
+const NATIONAL_TITLE = /(?:^|[\s–—:\-])(riks|landsdekkende)(?:$|[\s–—:,\-])/i;
+const geographicCatalogs = (dealerId, latitude, longitude) =>
+  CATALOGS(dealerId) + '&r_lat=' + encodeURIComponent(latitude) +
+  '&r_lng=' + encodeURIComponent(longitude);
+const catalogIdSet = list => new Set((Array.isArray(list) ? list : []).map(c => String(c.id)));
+async function limited(items, count, load) {
+  const results = new Array(items.length);
+  let i = 0;
+  await Promise.all(Array.from({ length: Math.min(items.length, count) }, async () => {
+    while (i < items.length) {
+      const j = i++;
+      try { results[j] = { ok: true, data: await load(items[j]) }; }
+      catch (error) { results[j] = { ok: false, error: String(error) }; }
+    }
+  }));
+  return results;
+}
+async function sourceGeoCoverage(dealerId, active, chain) {
+  if (!active.length) return new Map();
+  const stores = allStores.filter(s => s.chain === chain ||
+    (chain === 'SPAR' && s.chain === 'EUROSPAR'));
+  if (!stores.length) return new Map();
+  if (active.length === 1 && !REGIONAL_TITLE.test(String(active[0].label || '')))
+    return new Map();
+  const probes = await limited(GEO_PROBES, GEO_CONCURRENCY, ([lat, lng]) =>
+    json(geographicCatalogs(dealerId, lat, lng)));
+  if (probes.some(x => !x.ok || !Array.isArray(x.data))) {
+    console.warn(chain + ': location probes failed; no unverified matches published');
+    return new Map();
+  }
+  const probeSets = probes.map(x => catalogIdSet(x.data));
+  const variableIds = active.map(c => String(c.id)).filter(id => {
+    const seen = probeSets.filter(set => set.has(id)).length;
+    return seen > 0 && seen < probeSets.length;
+  });
+  if (!variableIds.length) {
+    console.log(chain + ': catalog feed did not prove geographic variation');
+    return new Map();
+  }
+  // Use an OSM store ID only after asking the provider at THAT store's exact
+  // coordinates; never assign a county using a guessed latitude boundary.
+  const checked = await limited(stores, GEO_CONCURRENCY, store =>
+    json(geographicCatalogs(dealerId, store.latitude, store.longitude)));
+  const failures = checked.filter(x => !x.ok || !Array.isArray(x.data)).length;
+  if (failures > Math.max(2, Math.floor(stores.length * 0.02))) {
+    console.warn(chain + ': insufficient geographic results (' + failures + ' errors)');
+    return new Map();
+  }
+  const mapped = new Map(variableIds.map(id => [id, []]));
+  checked.forEach((result, index) => {
+    if (!result.ok || !Array.isArray(result.data)) return;
+    const found = catalogIdSet(result.data);
+    for (const id of variableIds) if (found.has(id))
+      mapped.get(id).push(String(stores[index].id));
+  });
+  return new Map([...mapped].filter(([, ids]) => ids.length));
+}
+function attachCoverage(catalog, base, geoStoreIds, previousOffer) {
+  const label = String(catalog.label || '');
+  const region = REGIONAL_TITLE.exec(label);
+  const national = NATIONAL_TITLE.test(label);
+  const scope = region ? 'region' : national ? 'national' : 'unknown';
+  if (geoStoreIds && geoStoreIds.length) return {
+    ...base, scope: region ? 'region' : 'store',
+    regionLabel: region ? region[1] : '',
+    storeIds: [...new Set(geoStoreIds)], coverageVerified: true,
+    coverageMethod: 'provider-coordinate-filter'
+  };
+  if (previousOffer?.coverageVerified === true &&
+    previousOffer.coverageMethod === 'provider-coordinate-filter' &&
+    Array.isArray(previousOffer.storeIds) && previousOffer.storeIds.length) return {
+    ...base, scope: previousOffer.scope, regionLabel: previousOffer.regionLabel || '',
+    storeIds: previousOffer.storeIds, coverageVerified: true,
+    coverageMethod: 'provider-coordinate-filter'
+  };
+  return { ...base, scope, regionLabel: region ? region[1] : '',
+    coverageVerified: false, coverageMethod: region || national ? 'title-only' : 'not-provided' };
+}
 const today = Date.now();
 const isHttps = s => { try { return new URL(s).protocol === 'https:'; } catch { return false; } };
 async function json(url) {
@@ -41,6 +134,9 @@ for (const [chain, dealerId] of DEALERS) {
       dateMs(c.publish) != null && dateMs(c.publish) <= today &&
       dateMs(c.run_till) != null && dateMs(c.run_till) >= today
     ).sort((a, b) => (dateMs(b.publish) || 0) - (dateMs(a.publish) || 0)).slice(0, 4);
+    let geoCoverage = new Map();
+    try { geoCoverage = await sourceGeoCoverage(dealerId, active, chain); }
+    catch (error) { console.warn(chain + ': geo metadata unavailable: ' + error.message); }
     let count = 0;
     for (const catalog of active) {
       try {
@@ -51,13 +147,15 @@ for (const [chain, dealerId] of DEALERS) {
           throw new Error('Incomplete catalog pages');
         }
         const imageUrl = isHttps(catalog.images?.view) ? catalog.images.view : pages[0];
-        updated.push({
-          id: dealerId + '-' + catalog.id, chain,
+        const offerId = dealerId + '-' + catalog.id;
+        const oldMatch = previousActive.find(o => o.id === offerId);
+        updated.push(attachCoverage(catalog, {
+          id: offerId, chain,
           title: chain + ' – ' + (catalog.label || 'kundeavis'),
           imageUrl, url: '', pages,
           validFrom: catalog.run_from || null, validTo: catalog.run_till || null,
           publish: catalog.publish || null
-        });
+        }, geoCoverage.get(String(catalog.id)), oldMatch));
         count++;
       } catch (error) {
         console.warn(chain + ' catalog ' + catalog.id + ': ' + error.message);
