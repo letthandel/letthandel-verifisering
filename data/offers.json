@@ -35,7 +35,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T09:00:22+0000"
+      "publish": "2026-11-22T09:00:22+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "de79dm-7NcC0UB7",
@@ -63,7 +66,10 @@
       ],
       "validFrom": "2026-11-15T23:00:00+0000",
       "validTo": "2026-12-13T22:59:59+0000",
-      "publish": "2026-11-16T07:00:46+0000"
+      "publish": "2026-11-16T07:00:46+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "de79dm-zH4xk1qP",
@@ -99,7 +105,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-22T21:00:00+0000"
+      "publish": "2026-11-22T21:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "f5d5lm-5RAOTU9t",
@@ -135,7 +144,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-21T21:00:00+0000"
+      "publish": "2026-11-21T21:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "f5d5lm-hKqEtMwg",
@@ -171,7 +183,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-21T21:00:00+0000"
+      "publish": "2026-11-21T21:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "e857Mm-gx-0IVhi",
@@ -197,7 +212,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-22T07:00:00+0000"
+      "publish": "2026-11-22T07:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "80742m-5wNnOfE9",
@@ -240,7 +258,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T08:00:30+0000"
+      "publish": "2026-11-22T08:00:30+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "80742m-byR1nMHk",
@@ -283,7 +304,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T08:00:30+0000"
+      "publish": "2026-11-22T08:00:30+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "80742m-SrdiGgOU",
@@ -326,7 +350,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T08:00:30+0000"
+      "publish": "2026-11-22T08:00:30+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "80742m-TtcI_sy5",
@@ -369,7 +396,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T08:00:30+0000"
+      "publish": "2026-11-22T08:00:30+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "b3e8Fm-ayvCCX9_",
@@ -407,7 +437,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-23T05:00:00+0000"
+      "publish": "2026-11-23T05:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "b3e8Fm-b-8r8OiW",
@@ -460,7 +493,10 @@
       ],
       "validFrom": "2026-11-12T23:00:00+0000",
       "validTo": "2026-12-31T22:59:59+0000",
-      "publish": "2026-11-13T14:08:12+0000"
+      "publish": "2026-11-13T14:08:12+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "b3e8Fm-tad-viF7",
@@ -488,7 +524,10 @@
       ],
       "validFrom": "2026-10-31T23:00:00+0000",
       "validTo": "2026-11-30T22:59:59+0000",
-      "publish": "2026-10-31T22:00:00+0000"
+      "publish": "2026-10-31T22:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "257bxm-n7XGokjz",
@@ -532,7 +571,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T07:00:04+0000"
+      "publish": "2026-11-22T07:00:04+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "257bxm-rdVmpnEM",
@@ -577,7 +619,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T07:00:19+0000"
+      "publish": "2026-11-22T07:00:19+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "2686gD-4l0lh9v3",
@@ -598,7 +643,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2027-01-03T22:59:59+0000",
-      "publish": "2026-11-23T07:00:54+0000"
+      "publish": "2026-11-23T07:00:54+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "2686gD-akbaoF6d",
@@ -623,7 +671,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-21T21:00:12+0000"
+      "publish": "2026-11-21T21:00:12+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "2686gD-k9969MUN",
@@ -648,7 +699,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-21T21:00:12+0000"
+      "publish": "2026-11-21T21:00:12+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "4333pm-2ykzqCY0",
@@ -673,7 +727,10 @@
       ],
       "validFrom": "2026-11-21T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-21T23:00:30+0000"
+      "publish": "2026-11-21T23:00:30+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "5861Qq-6nMME2k5",
@@ -689,7 +746,10 @@
       ],
       "validFrom": "2026-10-31T23:00:00+0000",
       "validTo": "2026-11-30T22:59:59+0000",
-      "publish": "2026-11-01T02:09:44+0000"
+      "publish": "2026-11-01T02:09:44+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "51dawm-1XqpyFUt",
@@ -725,7 +785,10 @@
       ],
       "validFrom": "2026-11-21T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-21T21:00:00+0000"
+      "publish": "2026-11-21T21:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "51dawm-iFC5XbxV",
@@ -761,7 +824,10 @@
       ],
       "validFrom": "2026-11-21T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-21T21:00:00+0000"
+      "publish": "2026-11-21T21:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "51dawm-iJ0erUZa",
@@ -797,7 +863,10 @@
       ],
       "validFrom": "2026-11-21T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-21T21:00:00+0000"
+      "publish": "2026-11-21T21:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "51dawm-J69C3PJE",
@@ -833,7 +902,10 @@
       ],
       "validFrom": "2026-11-21T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-21T21:00:00+0000"
+      "publish": "2026-11-21T21:00:00+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "faa0Ym-AAqIjnUl",
@@ -872,7 +944,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-28T22:59:59+0000",
-      "publish": "2026-11-22T08:02:38+0000"
+      "publish": "2026-11-22T08:02:38+0000",
+      "scope": "unknown",
+      "coverageMethod": "not-provided",
+      "coverageVerified": false
     },
     {
       "id": "c062vm-8i58kagZ",
@@ -911,7 +986,10 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T05:00:54+0000"
+      "publish": "2026-11-22T05:00:54+0000",
+      "scope": "national",
+      "coverageMethod": "title-only",
+      "coverageVerified": false
     },
     {
       "id": "c062vm-R1FM7upX",
@@ -949,7 +1027,11 @@
       ],
       "validFrom": "2026-11-22T23:00:00+0000",
       "validTo": "2026-11-29T22:59:59+0000",
-      "publish": "2026-11-22T05:00:54+0000"
+      "publish": "2026-11-22T05:00:54+0000",
+      "scope": "region",
+      "regionLabel": "Nord",
+      "coverageMethod": "title-only",
+      "coverageVerified": false
     }
   ]
 }
